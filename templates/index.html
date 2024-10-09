@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infyz Solutions Chat Bot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="chat-icon" onclick="toggleChat()"></div>
+    <div id="chat-container">
+        <h1>Infyz Solutions Chat Bot</h1>
+        <div id="chatbox">
+            {% for message in messages %}
+                <p class="{{ message.role }}-message">
+                    <span class="{{ message.role }}-icon">
+                        {% if message.role == 'user' %}
+                            😊
+                        {% else %}
+                            🤖
+                        {% endif %}
+                    </span>
+                    <strong>{{ message.role.capitalize() }}:</strong> {{ message.content | safe }}
+                </p>
+            {% endfor %}
+        </div>
+        <form id="chat-form" method="post" action="/chat">
+            <input type="text" name="message" placeholder="Ask a question..." required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <script>
+        var chatOpened = false;
+
+        // Function to toggle the chat container visibility
+        function toggleChat() {
+            var chatContainer = document.getElementById('chat-container');
+            if (!chatOpened) {
+                chatContainer.style.display = 'block';
+                chatOpened = true;
+            } else {
+                chatContainer.style.display = 'none';
+                chatOpened = false;
+            }
+        }
+
+        document.getElementById('chat-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            let messageInput = document.querySelector('input[name="message"]');
+            let message = messageInput.value;
+            messageInput.value = '';
+
+            let chatbox = document.getElementById('chatbox');
+            chatbox.innerHTML += `<p class="user-message"><span class="user-icon">😊</span><strong>You:</strong> ${message}</p>`;
+
+            let response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `message=${encodeURIComponent(message)}`
+            });
+
+            let result = await response.json();
+            if (response.ok) {
+                chatbox.innerHTML += `<p class="assistant-message"><span class="assistant-icon">🤖</span><strong>Assistant:</strong> ${result.message}</p>`;
+            } else {
+                chatbox.innerHTML += `<p class="assistant-message"><span class="assistant-icon">🤖</span><strong>Assistant:</strong> Error: ${result.error}</p>`;
+            }
+
+            chatbox.scrollTop = chatbox.scrollHeight;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #70758F, #8D91A5); /* Linear gradient background */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0; /* Remove default margin */
+}
+
+h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#chat-container {
+    max-width: 600px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none; /* Initially hide the chat container */
+}
+
+#chatbox {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+#chatbox p {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.user-message {
+    justify-content: flex-end;
+    color: #7B708F;
+    margin-bottom: 10px;
+}
+
+.assistant-message {
+    justify-content: flex-start;
+    color: #70848F;
+    margin-bottom: 10px;
+}
+
+.user-icon, .assistant-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+#chat-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#chat-form input[type="text"] {
+    width: 97%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+#chat-form button[type="submit"] {
+    align-self: flex-end;
+    padding: 12px 24px;
+    background-color: #8F8A70;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#chat-form button[type="submit"]:hover {
+    background-color: #8D91A5;
+    transform: scale(1.05);
+}
+
+/* Style for the Infyz Solutions icon */
+/* Style for the Infyz Solutions chat icon */
+#chat-icon {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px; /* Adjust size as needed */
+    height: 60px; /* Adjust size as needed */
+    background-color: #007BFF; /* Background color for the chat icon */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px; /* Adjust font size of the icon if needed */
+    z-index: 1000;
+    background-image: url('../images/chatbot.jpg'); /* Relative path to your image */
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Optional: Add shadow for depth */
+}
